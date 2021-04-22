@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "builds": [{ "src": "api/index.ts", "use": "@now/node" }],
+  "routes": [{ "src": "/webhook", "dest": "api/index.ts" }]
+}
