@@ -1,0 +1,14 @@
+name: 'Sync Beancount Stock Price'
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  beancount:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Webhook
+      uses: zzzze/webhook-trigger@master
+      with:
+        webhook_url: ${{ secrets.WEBHOOK_URL }}
