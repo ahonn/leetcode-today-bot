@@ -1,4 +1,4 @@
-name: 'Sync Beancount Stock Price'
+name: 'LeetCode Today Record'
 
 on:
   schedule:
