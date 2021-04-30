@@ -2,6 +2,7 @@
 
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import { request } from 'graphql-request';
 import { format } from 'date-fns';
 
@@ -32,10 +33,19 @@ const DIFFICULTY_LEVEL_LABEL_MAP = {
   [DIFFICULTY_LEVEL.HARD]: '<font color="comment">困难</font>',
 };
 
+axiosRetry(axios, {
+  retries: 3,
+  shouldResetTimeout: true,
+  retryCondition: (_error) => true,
+});
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default async (req: VercelRequest, res: VercelResponse) => {
   const { key } = req.query;
-  const { todayRecord } = await request('https://leetcode-cn.com/graphql', query);
+  const { todayRecord } = await request(
+    'https://leetcode-cn.com/graphql',
+    query,
+  );
   const [{ question, date }] = todayRecord;
 
   const today = format(new Date(), 'yyyy-MM-dd');
@@ -44,16 +54,23 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     return;
   }
 
-  const problemsRes = await axios.get('https://leetcode-cn.com/api/problems/all/');
+  const problemsRes = await axios.get(
+    'https://leetcode-cn.com/api/problems/all/',
+    { timeout: 1000 },
+  );
   const problems = problemsRes.data.stat_status_pairs;
   const stat = problems.find((problem: any) => {
     return problem.stat.question_id === parseInt(question.questionId, 10);
   });
 
   const { questionFrontendId, questionTitleSlug, translatedTitle } = question;
-  const { difficulty, stat: { total_submitted, total_acs } } = stat;
+  const {
+    difficulty,
+    stat: { total_submitted, total_acs },
+  } = stat;
 
-  const difficultyLevelLabel = DIFFICULTY_LEVEL_LABEL_MAP[difficulty.level as DIFFICULTY_LEVEL];
+  const difficultyLevelLabel =
+    DIFFICULTY_LEVEL_LABEL_MAP[difficulty.level as DIFFICULTY_LEVEL];
   const acRate = ((total_acs / total_submitted) * 100).toFixed(2) + '%';
   const path = `/problems/${questionTitleSlug}/`;
 
@@ -73,12 +90,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   if (key) {
     await axios.post(
       `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${key}`,
-       data,
-       {
-         headers: {
-           'Content-Type': 'application/json',
-         },
-       }
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
     );
   }
 
