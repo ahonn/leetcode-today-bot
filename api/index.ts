@@ -36,7 +36,7 @@ const DIFFICULTY_LEVEL_LABEL_MAP = {
 axiosRetry(axios, {
   retries: 3,
   shouldResetTimeout: true,
-  retryCondition: (_error) => true,
+  retryCondition: () => true,
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -56,7 +56,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   const problemsRes = await axios.get(
     'https://leetcode-cn.com/api/problems/all/',
-    { timeout: 1000 },
+    { timeout: 3000 },
   );
   const problems = problemsRes.data.stat_status_pairs;
   const stat = problems.find((problem: any) => {
