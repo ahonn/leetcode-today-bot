@@ -34,7 +34,7 @@ const DIFFICULTY_LEVEL_LABEL_MAP = {
 };
 
 axiosRetry(axios, {
-  retries: 3,
+  retries: 4,
   shouldResetTimeout: true,
   retryCondition: () => true,
 });
@@ -88,7 +88,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   };
 
   if (key) {
-    await axios.post(
+    axios.post(
       `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${key}`,
       data,
       {
