@@ -36,7 +36,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   };
 
   if (key) {
-    axios.post(
+    await axios.post(
       `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${key}`,
       data,
       {
