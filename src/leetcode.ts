@@ -17,7 +17,7 @@ const query = `{
 
 export enum Difficulty {
   EASY = 'easy',
-  MIDDLE = 'middle',
+  MEDIUM = 'medium',
   HARD = 'hard',
 }
 

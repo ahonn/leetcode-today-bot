@@ -6,7 +6,7 @@ import { Difficulty, getLeetcodeTodayRecord } from './leetcode';
 
 const DIFFICULTY_LEVEL_LABEL_MAP: Record<Difficulty, string> = {
   [Difficulty.EASY]: '<font color="info">简单</font>',
-  [Difficulty.MIDDLE]: '<font color="warning">中等</font>',
+  [Difficulty.MEDIUM]: '<font color="warning">中等</font>',
   [Difficulty.HARD]: '<font color="comment">困难</font>',
 };
 
@@ -24,7 +24,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   let content = '';
   content += `${frontendId}.${title}\n`;
-  content += `> 难度: ${DIFFICULTY_LEVEL_LABEL_MAP[difficulty]}\n`;
+  content += `> 难度: ${DIFFICULTY_LEVEL_LABEL_MAP[difficulty] ?? '未知'}\n`;
   content += `> 通过率: ${(acRate * 100).toFixed(1)}%\n`;
   content += `> 链接: [中文](https://leetcode-cn.com${path}) | [英文](https://leetcode.com${path})\n`;
 
