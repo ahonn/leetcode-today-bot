@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { Difficulty, getLeetcodeTodayRecord } from './leetcode';
+import { Difficulty, getLeetcodeTodayRecord } from '../leetcode';
 
 const DIFFICULTY_LEVEL_LABEL_MAP: Record<Difficulty, string> = {
   [Difficulty.EASY]: '简单',
