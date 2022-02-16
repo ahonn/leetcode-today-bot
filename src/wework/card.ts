@@ -28,7 +28,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       card_type: 'text_notice',
       source: {
         icon_url: 'https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/resources/LeetCode.png',
-        desc: '每日 LeetCode',
+        desc: '每日一题',
         desc_color: 0,
       },
       sub_title_text: `${frontendId}.${title}`,
