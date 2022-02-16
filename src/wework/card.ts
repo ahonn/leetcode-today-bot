@@ -27,13 +27,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     template_card: {
       card_type: 'text_notice',
       source: {
-        icon_url: 'https://leetcode.com/static/images/LeetCode_logo_rvs.png',
+        icon_url: 'https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/resources/LeetCode.png',
         desc: '每日 LeetCode',
         desc_color: 0,
       },
-      main_title: {
-        title: `${frontendId}.${title}\n`,
-      },
+      sub_title_text: `${frontendId}.${title}`,
       horizontal_content_list: [
         {
           keyname: '难度',
