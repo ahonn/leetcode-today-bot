@@ -1,5 +1,12 @@
 {
   "version": 2,
-  "builds": [{ "src": "src/wework.ts", "use": "@now/node" }],
-  "routes": [{ "src": "/webhook/wework", "dest": "src/wework.ts" }]
+  "builds": [
+    { "src": "src/wework/markdown.ts", "use": "@now/node" },
+    { "src": "src/wework/card.ts", "use": "@now/node" }
+  ],
+  "routes": [
+    { "src": "/webhook/wework", "dest": "src/wework/markdown.ts" },
+    { "src": "/webhook/wework/markdown", "dest": "src/wework/markdown.ts" },
+    { "src": "/webhook/wework/card", "dest": "src/wework/card.ts" }
+  ]
 }
