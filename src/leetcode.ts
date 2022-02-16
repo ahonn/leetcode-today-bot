@@ -11,6 +11,9 @@ const query = `{
         translatedTitle
         titleSlug
         acRate
+        topicTags {
+          translatedName
+        }
       }
     }
 }`;
@@ -27,6 +30,9 @@ export type TodayRecordQuestion = {
   path: string;
   acRate: number;
   difficulty: Difficulty;
+  topicTags: {
+    translatedName: string;
+  }[];
 };
 
 export async function getLeetcodeTodayRecord(): Promise<TodayRecordQuestion | null> {
@@ -44,6 +50,7 @@ export async function getLeetcodeTodayRecord(): Promise<TodayRecordQuestion | nu
   const {
     acRate,
     titleSlug,
+    topicTags,
     difficulty: _difficulty,
     questionFrontendId: frontendId,
     translatedTitle: title,
@@ -57,5 +64,6 @@ export async function getLeetcodeTodayRecord(): Promise<TodayRecordQuestion | nu
     path,
     acRate,
     difficulty,
+    topicTags,
   };
 }

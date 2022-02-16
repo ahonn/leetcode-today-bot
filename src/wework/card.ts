@@ -20,7 +20,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     return;
   }
 
-  const { frontendId, title, acRate, difficulty, path } = todayRecord;
+  const { frontendId, title, acRate, difficulty, path, topicTags } = todayRecord;
 
   const data = {
     msgtype: 'template_card',
@@ -40,6 +40,10 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         {
           keyname: '通过率',
           value: `${(acRate * 100).toFixed(1)}%`,
+        },
+        {
+          keyname: '标签',
+          value: `${topicTags.map(({ translatedName }) => `#${translatedName}`).join(' ')}`,
         },
       ],
       jump_list: [
